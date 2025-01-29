@@ -48,12 +48,12 @@ const Home: React.FC = () => {
   return (
     <div className="p-8 flex w-full gap-5">
       <div className='w-1/5 h-screen'>
-      <SearchBar onSearch={setCity} />
-      {todayWeather && <WeatherCard {...todayWeather} />}
+        <SearchBar onSearch={setCity} />
+        {todayWeather && <WeatherCard {...todayWeather} />}
       </div>
       <div className='w-4/5 h-screen'>
-      <h2 className="text-2xl mt-8">Weekly Forecast</h2>
-      <ForecastList forecasts={forecastData} />
+        <h2 className="text-2xl mt-8">Weekly Forecast</h2>
+        <ForecastList forecasts={forecastData} />
       </div>
     </div>
   );
