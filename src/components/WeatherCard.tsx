@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import Image from 'next/image'; // Next.js Image komponentini import qilish
 
 interface WeatherCardProps {
   temperature: number;
@@ -32,19 +33,19 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
       <CardContent className="space-y-3">
         <p className="flex items-center gap-2">
           {weatherCondition} 
-          <img src={`/icons/${weatherCondition.includes("Rain") ? "cloud-rain.png" : "sun.png"}`} alt={weatherCondition} className="w-6 h-6" />
+          <Image src={`/icons/${weatherCondition.includes("Rain") ? "cloud-rain.png" : "sun.png"}`} alt={weatherCondition} width={24} height={24} />
         </p>
         <p className="flex items-center gap-2">
-          Min: {(minTemp - 273.15).toFixed(1)}°C <img src="/icons/sun.png" alt="Min Temp" className="w-6 h-6" />
+          Min: {(minTemp - 273.15).toFixed(1)}°C <Image src="/icons/sun.png" alt="Min Temp" width={24} height={24} />
         </p>
         <p className="flex items-center gap-2">
-          Max: {(maxTemp - 273.15).toFixed(1)}°C <img src="/icons/sun.png" alt="Max Temp" className="w-6 h-6" />
+          Max: {(maxTemp - 273.15).toFixed(1)}°C <Image src="/icons/sun.png" alt="Max Temp" width={24} height={24} />
         </p>
         <p className="flex items-center gap-2">
-          Humidity: {humidity}% <img src="/icons/water.png" alt="Humidity" className="w-6 h-6" />
+          Humidity: {humidity}% <Image src="/icons/water.png" alt="Humidity" width={24} height={24} />
         </p>
         <p className="flex items-center gap-2">
-          Wind Speed: {windSpeed} m/s <img src="/icons/wind.png" alt="Wind Speed" className="w-6 h-6" />
+          Wind Speed: {windSpeed} m/s <Image src="/icons/wind.png" alt="Wind Speed" width={24} height={24} />
         </p>
       </CardContent>
     </Card>

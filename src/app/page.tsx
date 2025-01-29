@@ -6,14 +6,53 @@ import SearchBar from '../components/SearchBar';
 
 const api = "5193679eefb8b3240c39abeeadb7ed40";
 
+interface WeatherData {
+  temperature: number;
+  city: string;
+  date: string;
+  weatherCondition: string;
+  minTemp: number;
+  maxTemp: number;
+  humidity: number;
+  windSpeed: number;
+}
+
+interface Forecast {
+  day: string;
+  temperature: number;
+  condition: string;
+}
+
+interface WeatherApiResponse {
+  cod: string;
+  city: {
+    name: string;
+  };
+  list: Array<{
+    main: {
+      temp: number;
+      temp_min: number;
+      temp_max: number;
+      humidity: number;
+    };
+    weather: Array<{
+      description: string;
+    }>;
+    wind: {
+      speed: number;
+    };
+    dt_txt: string;
+  }>;
+}
+
 const Home: React.FC = () => {
-  const [todayWeather, setTodayWeather] = useState<any>(null);
-  const [forecastData, setForecastData] = useState<any[]>([]);
+  const [todayWeather, setTodayWeather] = useState<WeatherData | null>(null);
+  const [forecastData, setForecastData] = useState<Forecast[]>([]);
   const [city, setCity] = useState('Toshkent'); // Default city
 
   const fetchWeatherData = async (city: string) => {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${api}`);
-    const data = await response.json();
+    const data: WeatherApiResponse = await response.json();
 
     if (data.cod === "200") {
       // Bugungi ob-havo ma'lumotlarini olish
@@ -30,7 +69,7 @@ const Home: React.FC = () => {
       });
 
       // Taxminiy ob-havo ma'lumotlarini olish
-      const forecasts = data.list.slice(0, 7).map((item: any) => ({
+      const forecasts = data.list.slice(0, 7).map((item) => ({
         day: new Date(item.dt_txt).toLocaleDateString('en-US', { weekday: 'short' }),
         temperature: item.main.temp,
         condition: item.weather[0].description,
